@@ -180,3 +180,51 @@ mod private {
     /// Used as a trait bound for traits that shouldn't be implemented outside of this crate.
     pub trait Sealed {}
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::{from_value, json, to_value};
+
+    #[test]
+    fn serialize_entity_type() {
+        assert_eq!(to_value(Unknown).unwrap(), json!(0));
+        assert_eq!(to_value(Student).unwrap(), json!(104));
+    }
+
+    #[test]
+    fn deserialize_entity_type() {
+        from_value::<Unknown>(json!(0)).unwrap();
+        from_value::<Group>(json!(103)).unwrap();
+        from_value::<Unknown>(json!(100)).unwrap_err();
+        from_value::<Staff>(json!(null)).unwrap_err();
+    }
+
+    #[test]
+    fn serialize_unknown_id() {
+        assert_eq!(to_value(UnknownId).unwrap(), json!(null));
+    }
+
+    #[test]
+    fn deserialize_unknown_id() {
+        from_value::<UnknownId>(json!(null)).unwrap();
+        from_value::<UnknownId>(json!(100)).unwrap_err();
+    }
+
+    #[test]
+    fn serialize_room_id() {
+        assert_eq!(
+            to_value(RoomId("1173077".to_owned())).unwrap(),
+            json!("1173077")
+        );
+    }
+
+    #[test]
+    fn deserialize_room_id() {
+        assert_eq!(
+            from_value::<RoomId>(json!("1172947")).unwrap(),
+            RoomId("1172947".to_owned())
+        );
+        from_value::<RoomId>(json!(1172976)).unwrap_err();
+    }
+}
