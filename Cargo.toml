@@ -1,0 +1,9 @@
+[package]
+name = "cy-celcat"
+version = "0.1.0"
+edition = "2021"
+authors = ["Lucas Ransan <lucas@ransan.tk>"]
+
+[dependencies]
+paste = "1.0"
+serde = { version = "1.0", features = ["derive"] }
