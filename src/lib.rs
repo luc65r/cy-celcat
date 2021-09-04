@@ -1,18 +1,45 @@
+#![doc = include_str!("../README.md")]
+//!
+//! ## Technical stuff
+//!
+//! ### *Resources* and *entities*
+//!
+//! Celcat often require a *resource* type (like [`Student`]) in the request to
+//! know what it must send back, and sometimes a *resource* ID (like [`StudentId`])
+//! which identifies a particular resource.
+//! Calcat sends back *entities*, identified by an *entity* type and an *entity* ID.
+//!
+//! An *entity* can be a *resource*, in which case it has an associated ID.
+//! If it isn't a *resource*, is doesn't have an ID (`null` in JSON),
+//! and we represent its type with [`Unknown`], and its ID with [`UnknownId`].
+
 use std::{concat, stringify};
 
 use paste::paste;
 use serde::{Deserialize, Serialize};
 
+/// A *resource* type.
+///
+/// This trait cannot be implemented outside of this crate.
 pub trait ResourceType: Serialize + for<'de> Deserialize<'de> + private::Sealed {
     type Id: ResourceId;
 }
 
+/// A *resource* ID.
+///
+/// This trait cannot be implemented outside of this crate.
 pub trait ResourceId: EntityId {}
 
+/// An *entity* type.
+///
+/// This trait cannot be implemented outside of this crate.
 pub trait EntityType: Serialize + for<'de> Deserialize<'de> + private::Sealed {
     type Id: EntityId;
 }
 
+/// An *entity* ID.
+///
+/// This trait cannot be implemented outside of this crate.
 pub trait EntityId: Serialize + for<'de> Deserialize<'de> + private::Sealed {}
 
 macro_rules! if_unknown {
@@ -59,9 +86,22 @@ macro_rules! entities {
     ) => {
         $(
             paste! {
-                #[derive(Debug, Default, Clone, Copy, PartialEq, Serialize, Deserialize)]
-                #[serde(try_from = "u8", into = "u8")]
-                pub struct $r;
+                // TODO: find a way to not write definitions 2 times
+                if_unknown! {
+                    if $r {
+                        #[doc = "The unknown entity type."]
+                        #[derive(Debug, Default, Clone, Copy, PartialEq)]
+                        #[derive(Serialize, Deserialize)]
+                        #[serde(try_from = "u8", into = "u8")]
+                        pub struct $r;
+                    } else {
+                        #[doc = "The " $r:lower " resource type."]
+                        #[derive(Debug, Default, Clone, Copy, PartialEq)]
+                        #[derive(Serialize, Deserialize)]
+                        #[serde(try_from = "u8", into = "u8")]
+                        pub struct $r;
+                    }
+                }
 
                 impl From<$r> for u8 {
                     fn from(_: $r) -> Self {
@@ -94,7 +134,8 @@ macro_rules! entities {
 
                 if_unknown! {
                     if $r {
-                        #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
+                        #[derive(Debug, Default, Clone, PartialEq)]
+                        #[derive(Serialize, Deserialize)]
                         #[serde(from = "()", into = "()")]
                         pub struct [<$r Id>];
                         impl From<[<$r Id>]> for () {
@@ -106,7 +147,8 @@ macro_rules! entities {
                             }
                         }
                     } else {
-                        #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
+                        #[derive(Debug, Default, Clone, PartialEq)]
+                        #[derive(Serialize, Deserialize)]
                         #[repr(transparent)]
                         pub struct [<$r Id>](pub String);
                     }
