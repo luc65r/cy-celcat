@@ -1,4 +1,5 @@
 pub mod calendar;
+pub mod event;
 
 use serde::{Deserialize, Serialize};
 
