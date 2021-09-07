@@ -23,6 +23,7 @@
         inherit system;
       };
       lib = pkgs.lib;
+      
       rust-nightly = fenix.packages.${system};
       naersk-lib = let
         toolchain = with rust-nightly; combine (with minimal; [
@@ -32,6 +33,13 @@
         cargo = toolchain;
         rustc = toolchain;
       };
+
+      nativeBuildInputs = with pkgs; [
+        pkg-config
+      ];
+      buildInputs = with pkgs; [
+        openssl
+      ];
     in {
       devShell = pkgs.mkShell {
         nativeBuildInputs = lib.singleton (with rust-nightly; combine (with default; [
@@ -44,11 +52,12 @@
         ])) ++ (with pkgs; [
           rust-nightly.rust-analyzer
           cargo-expand
-        ]);
+        ]) ++ nativeBuildInputs ++ buildInputs;
       };
 
       defaultPackage = naersk-lib.buildPackage {
         src = ./.;
+        inherit nativeBuildInputs buildInputs;
         doCheck = true;
       };
     });
