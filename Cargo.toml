@@ -11,6 +11,7 @@ license = "MIT"
 authors = ["Lucas Ransan <lucas@ransan.tk>"]
 
 [dependencies]
+chrono = { version = "0.4", features = ["serde"] }
 paste = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 
