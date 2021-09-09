@@ -58,11 +58,7 @@ impl Celcat {
         }
     }
 
-    pub async fn login<S>(
-        &mut self,
-        username: &str,
-        password: &str,
-    ) -> Result<&mut Self, FetchError> {
+    pub async fn login(&mut self, username: &str, password: &str) -> Result<(), FetchError> {
         #[derive(Debug, Serialize)]
         struct Form<'a> {
             #[serde(rename = "Name")]
@@ -86,7 +82,7 @@ impl Celcat {
             .send()
             .await?;
 
-        Ok(self)
+        Ok(())
     }
 
     pub async fn fetch<F>(&self, req: F::Request) -> Result<F, FetchError>
