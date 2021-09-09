@@ -1,0 +1,20 @@
+[package]
+name = "cy-celcat-fetch"
+description = "Safe wrapper around CY Cergy Paris Univertity’s Celcat API"
+keywords = ["celcat", "timetabler"]
+version = "0.1.0"
+edition = "2021"
+repository = "https://github.com/luc65r/cy-celcat"
+license = "MIT"
+authors = ["Lucas Ransan <lucas@ransan.tk>"]
+include = ["src/**/*", "Cargo.toml", "LICENSE"]
+
+[[bin]]
+name = "celcat-fetch"
+path = "src/main.rs"
+
+[dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+clap = "~3.0.0-beta.4"
+cy-celcat = { path = "../" }
+tokio = { version = "1", features = ["full"] }

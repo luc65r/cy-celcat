@@ -9,6 +9,10 @@ readme = "README.md"
 repository = "https://github.com/luc65r/cy-celcat"
 license = "MIT"
 authors = ["Lucas Ransan <lucas@ransan.tk>"]
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[lib]
+name = "celcat"
 
 [dependencies]
 chrono = { version = "0.4", features = ["serde"] }
@@ -24,9 +28,10 @@ thiserror = { version = "1.0", optional = true }
 [dev-dependencies]
 serde_json = "1.0"
 
-[lib]
-name = "celcat"
-
 [features]
 default = ["fetch"]
 fetch = ["lazy_static", "log", "regex", "reqwest", "thiserror"]
+
+[workspace]
+members = ["fetch"]
+default-members = [".", "fetch"]

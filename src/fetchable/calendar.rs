@@ -11,7 +11,7 @@ use crate::entities::{CourseId, ModuleId, ResourceType};
 pub struct Course {
     pub id: CourseId,
     pub start: NaiveDateTime,
-    pub end: NaiveDateTime,
+    pub end: Option<NaiveDateTime>,
     pub all_day: bool,
     pub description: String,
     pub background_color: String,
@@ -41,8 +41,8 @@ pub struct CalendarDataRequest<T: ResourceType> {
     pub end: NaiveDateTime,
     pub res_type: T,
     pub cal_view: CalView,
-    pub federation_ids: Vec<T::Id>,
-    pub colour_scheme: i64, // TODO: values?
+    pub federation_ids: T::Id, // TODO: array
+    pub colour_scheme: i64,    // TODO: values?
 }
 
 #[derive(Debug, Clone)]
