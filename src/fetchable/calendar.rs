@@ -112,7 +112,7 @@ mod tests {
             Course {
                 id: CourseId("-1347128091:-662573064:1:42367:4".to_owned()),
                 start: NaiveDate::from_ymd(2021, 9, 22).and_hms(14, 30, 0),
-                end: NaiveDate::from_ymd(2021, 9, 22).and_hms(17, 45, 0),
+                end: Some(NaiveDate::from_ymd(2021, 9, 22).and_hms(17, 45, 0)),
                 all_day: false,
                 description: "Some description".to_owned(),
                 background_color: "#FF0000".to_owned(),
