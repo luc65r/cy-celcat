@@ -23,7 +23,7 @@
         inherit system;
       };
       lib = pkgs.lib;
-      
+
       rust-nightly = fenix.packages.${system};
       naersk-lib = let
         toolchain = with rust-nightly; combine (with minimal; [
