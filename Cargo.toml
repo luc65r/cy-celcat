@@ -9,7 +9,7 @@ readme = "README.md"
 repository = "https://github.com/luc65r/cy-celcat"
 license = "MIT"
 authors = ["Lucas Ransan <lucas@ransan.tk>"]
-include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+include = ["/src/**/*", "/Cargo.toml", "/README.md", "/LICENSE"]
 
 [lib]
 name = "celcat"
