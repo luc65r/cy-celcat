@@ -9,7 +9,7 @@
 //! If it isn't a *resource*, is doesn't have an ID (`null` in JSON),
 //! and we represent its type with [`Unknown`], and its ID with [`UnknownId`].
 
-use std::{concat, stringify};
+use std::{concat, convert::TryFrom, stringify};
 
 use paste::paste;
 use serde::{Deserialize, Serialize};
