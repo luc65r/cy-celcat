@@ -9,7 +9,7 @@
 //! If it isn't a *resource*, is doesn't have an ID (`null` in JSON),
 //! and we represent its type with [`Unknown`], and its ID with [`UnknownId`].
 
-use std::{concat, convert::TryFrom, stringify};
+use std::{concat, convert::TryFrom, fmt::Debug, stringify};
 
 use paste::paste;
 use serde::{Deserialize, Serialize};
@@ -17,7 +17,9 @@ use serde::{Deserialize, Serialize};
 /// A *resource* type.
 ///
 /// This trait cannot be implemented outside of this crate.
-pub trait ResourceType: Serialize + for<'de> Deserialize<'de> + private::Sealed {
+pub trait ResourceType:
+    Debug + Clone + PartialEq + Serialize + for<'de> Deserialize<'de> + private::Sealed
+{
     type Id: ResourceId;
 }
 
@@ -29,14 +31,19 @@ pub trait ResourceId: EntityId {}
 /// An *entity* type.
 ///
 /// This trait cannot be implemented outside of this crate.
-pub trait EntityType: Serialize + for<'de> Deserialize<'de> + private::Sealed {
+pub trait EntityType:
+    Debug + Clone + PartialEq + Serialize + for<'de> Deserialize<'de> + private::Sealed
+{
     type Id: EntityId;
 }
 
 /// An *entity* ID.
 ///
 /// This trait cannot be implemented outside of this crate.
-pub trait EntityId: Serialize + for<'de> Deserialize<'de> + private::Sealed {}
+pub trait EntityId:
+    Debug + Clone + PartialEq + Serialize + for<'de> Deserialize<'de> + private::Sealed
+{
+}
 
 macro_rules! if_unknown {
     (
