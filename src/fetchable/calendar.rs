@@ -8,6 +8,7 @@ use crate::entities::{CourseId, ModuleId, ResourceType};
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[non_exhaustive]
 pub struct Course {
     pub id: CourseId,
     pub start: NaiveDateTime,
@@ -27,6 +28,7 @@ pub struct Course {
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[non_exhaustive]
 pub enum CalView {
     Month,
     AgendaWeek,

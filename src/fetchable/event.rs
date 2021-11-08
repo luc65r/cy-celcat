@@ -13,6 +13,7 @@ pub struct SideBarEvent {
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[non_exhaustive]
 pub struct RawSideBarEventElement<T: EntityType> {
     pub content: Option<String>,
     #[serde(bound(deserialize = "T: EntityType"))]
@@ -27,6 +28,7 @@ pub struct RawSideBarEventElement<T: EntityType> {
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(tag = "label")]
+#[non_exhaustive]
 pub enum SideBarEventElement {
     Time(RawSideBarEventElement<Unknown>),
     #[serde(rename = "Catégorie")]
