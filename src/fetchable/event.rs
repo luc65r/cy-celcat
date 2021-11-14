@@ -148,7 +148,7 @@ pub struct EventRequest {
 impl Fetchable for Event {
     type Request = EventRequest;
 
-    const METHOD_NAME: &'static str = "GetEvent";
+    const METHOD_NAME: &'static str = "GetSideBarEvent";
 }
 
 #[cfg(test)]
