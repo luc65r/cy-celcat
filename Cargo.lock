@@ -172,7 +172,7 @@ checksum = "5827cebf4670468b8772dd191856768aedcb1b0278a04f989f7766351917b9dc"
 
 [[package]]
 name = "cy-celcat"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "chrono",
  "lazy_static",
@@ -187,7 +187,7 @@ dependencies = [
 
 [[package]]
 name = "cy-celcat-fetch"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "chrono",
  "clap",
