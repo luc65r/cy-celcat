@@ -3,10 +3,9 @@ use celcat::{
     Celcat, Group, GroupId,
 };
 use chrono::NaiveDateTime;
-use clap::{AppSettings, Clap};
+use clap::Parser;
 
-#[derive(Debug, Clap)]
-#[clap(setting = AppSettings::ColoredHelp)]
+#[derive(Debug, Parser)]
 struct Opts {
     #[clap(short, long)]
     username: String,
@@ -16,7 +15,7 @@ struct Opts {
     subcmd: SubCommand,
 }
 
-#[derive(Debug, Clap)]
+#[derive(Debug, Parser)]
 enum SubCommand {
     Calendar {
         #[clap(short, long)]
