@@ -3,7 +3,7 @@ use celcat::{
         calendar::{CalView, CalendarData, CalendarDataRequest},
         event::{Event, EventRequest},
     },
-    Celcat, Student, StudentId, CourseId,
+    Celcat, CourseId, Student, StudentId,
 };
 use chrono::NaiveDateTime;
 use clap::Parser;
