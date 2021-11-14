@@ -2,7 +2,7 @@
 name = "cy-celcat-fetch"
 description = "Safe wrapper around CY Cergy Paris Univertity’s Celcat API"
 keywords = ["celcat", "timetabler"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 repository = "https://github.com/luc65r/cy-celcat"
 license = "MIT"
