@@ -8,7 +8,7 @@ use crate::fetchable::Fetchable;
 
 #[derive(Error, Debug)]
 pub enum FetchError {
-    #[error("request error")]
+    #[error("request error: {0}")]
     Reqwest(#[from] reqwest::Error),
     #[error("cannot find the token")]
     Token,
