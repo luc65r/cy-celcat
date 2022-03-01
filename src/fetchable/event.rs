@@ -68,6 +68,7 @@ impl<'de> Deserialize<'de> for Elements {
                 #[derive(Copy, Clone, PartialEq, Deserialize)]
                 #[serde(field_identifier)]
                 enum Tag {
+                    #[serde(rename = "Date")]
                     Time,
                     #[serde(rename = "Catégorie")]
                     Category,
@@ -162,7 +163,7 @@ mod tests {
         assert!(matches!(
             from_value::<Elements>(json!([
                 {
-                    "label": "Time",
+                    "label": "Date",
                     "content": "11/9/2021 2:01 PM-5:16 PM",
                     "federationId": null,
                     "entityType": 0,
